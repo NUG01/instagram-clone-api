@@ -15,12 +15,19 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('username')->unique();
+            $table->string('fullname');
+            $table->string('birth_date');
+            $table->string('thumbnail')->default('assets/avatar.png');
+            $table->integer('is_verified')->default(0);
+            $table->string('verification_code')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('facebook_id')->nullable();
+			$table->string('facebook_token')->nullable();
+			$table->string('facebook_refresh_token')->nullable();
         });
     }
 
