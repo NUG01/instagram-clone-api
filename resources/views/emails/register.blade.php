@@ -83,7 +83,7 @@
             -premailer-width: 100%;
             -premailer-cellpadding: 0;
             -premailer-cellspacing: 0;
-            background-color: #181623;
+            background-color: #fff;
         }
 
         .email-content {
@@ -113,7 +113,7 @@
             -premailer-width: 570px;
             -premailer-cellpadding: 0;
             -premailer-cellspacing: 0;
-            background-color: #181623;
+            background-color: #fff;
         }
 
         .body-action {
@@ -171,6 +171,11 @@
             display: block;
 
         }
+
+        .smallFont {
+            font-size: 12px !important;
+            text-align: center;
+        }
     </style>
 
     <style type="text/css" rel="stylesheet" media="all">
@@ -186,21 +191,22 @@
         }
 
         body {
-            background-color: #181623;
-            color: #ffffff;
+            background-color: #fff;
+            color: #565a5c;
         }
     </style>
 </head>
 
 <body
-    style="width: 100% !important; height: 100vh !important;display:flex;align-items:center;justify-content:center; -webkit-text-size-adjust: none; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; background-color: #181623; color: #010414; margin: 0;"
-    bgcolor="#181623">
+    style="width: 100% !important; height: 100vh !important;display:flex;align-items:center;justify-content:center; -webkit-text-size-adjust: none; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; background-color: #fff; color: #565a5c; margin: 0;"
+    bgcolor="#fff">
     <span class="preheader"
-        style="display: none !important; visibility: hidden; mso-hide: all; font-size: 1px; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden;">Use
-        this mail to activate your account.</span>
+        style="display: none !important; visibility: hidden; mso-hide: all; font-size: 1px; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden;">Hi,
+        Someone tried to sign up for an Instagram account with {{ $email }}. If it was you, enter this
+        confirmation code in the app:</span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation"
-        style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #181623; margin: 0; padding: 0;"
-        bgcolor="#181623">
+        style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #fff; margin: 0; padding: 0;"
+        bgcolor="#fff">
         <tr>
             <td align="center"
                 style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
@@ -209,64 +215,68 @@
                     <!-- Email Body -->
                     <tr>
                         <td class="email-body" width="750" cellpadding="0" cellspacing="0"
-                            style="word-break: break-word; margin: 0; padding: 0; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0;">
+                            style="word-break: break-word; margin: 0; padding-right: 25%; padding-left: 25%; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0;">
                             <table class="email-body_inner" align="center" width="570" cellpadding="0"
                                 cellspacing="0" role="presentation"
-                                style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #181623; margin: 0 auto; padding: 0;"
-                                bgcolor="#181623">
+                                style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #fff; margin: 0 auto; padding: 0;"
+                                bgcolor="#fff">
                                 <!-- Body content -->
                                 <tr>
                                     <td class="content-cell"
                                         style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; padding: 45px;">
-                                        <div class="f-fallback" style="text-align:center;">
-                                            <img style="width:22px; height:20px; margin:0 auto;"
-                                                src="{{ $message->embed(public_path() . '/assets/emailConf.png') }}">
-                                            <p style="font-size:12px; color:#ffffff; text-transform:uppercase;">Movie
-                                                Quotes</p>
+                                        <div class="f-fallback">
+                                            <div style="display: flex; width:60%; gap:9px;">
+                                                <img style="width:42px; height:40px; margin:0 auto;"
+                                                    src="{{ $message->embed(public_path() . '/assets/instagramLogo.jpeg') }}">
+                                                <div style="height:30px; width:1.5px; background-color:#d0d1d1;">
+                                                </div>
+                                                <img style="height:40px; margin:0 auto;"
+                                                    src="{{ $message->embed(public_path() . '/assets/instagramText.png') }}">
+                                            </div>
                                             <!-- Action -->
                                             <table class="body-action" align="center" width="100%" cellpadding="0"
                                                 cellspacing="0" role="presentation"
                                                 style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center; margin: 30px auto; padding: 0;">
                                                 <tr>
                                                     <td align="center"
-                                                        style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
+                                                        style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif;">
 
 
                                                         <table width="100%" border="0" cellspacing="0"
                                                             cellpadding="0" role="presentation">
                                                             <tr>
                                                                 <td align="start"
-                                                                    style="word-break: break-word; font-family:Sans-serif, &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
+                                                                    style="word-break: break-word; font-family:Sans-serif, &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif;">
                                                                     <p
-                                                                        style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:24px !important;color:#ffffff;">
-                                                                        Hola {{ $name }}!</p>
+                                                                        style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:24px !important;color:#565a5c;">
+                                                                        Hi,</p>
                                                                     <p
-                                                                        style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:32px !important;color:#ffffff;">
-                                                                        Thanks for joining Movie quotes! We really
-                                                                        appreciate it. Please click the button below to
-                                                                        verify your account:</p>
-                                                                    <a href="{{ getenv('BACK_URL') }}/email-verification?code={{ $url }}"
-                                                                        target="_blank" class="f-fallback button"
-                                                                        style="position:relative;padding:13px 7px; font-size:16px;font-weight:400;font-family:Sans-serif; color: #FFF; border:none; background-color: #E31221 !important; display: text-align:center; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); -webkit-text-size-adjust: none; box-sizing: border-box;">
-                                                                        <span class="ninjaButton"
-                                                                            style="font-family:'Inter',sans-serif;">Verify
-                                                                            account</span></a>
-                                                                    <p
-                                                                        style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:32px !important;color:#ffffff;">
-                                                                        If clicking doesn't work, you can try copying
-                                                                        and pasting it to your browser:</p>
-                                                                    <a href="{{ getenv('BACK_URL') }}/email-verification?code={{ $url }}"
-                                                                        style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:40px !important;color:#DDCCAA;">
-                                                                        {{ getenv('BACK_URL') }}/email-verification?code={{ $url }}</a>
-                                                                    <p
-                                                                        style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:24px;color:#ffffff;">
-                                                                        If you have any problems, please contact us:
-                                                                        <span
-                                                                            style="text-decoration:none; color:#ffffff">support@moviequotes.ge</span>
+                                                                        style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:32px !important;color:#565a5c;">
+                                                                        Someone tried to sign up for an Instagram
+                                                                        account with {{ $email }}. If it was
+                                                                        you, enter this confirmation code in the app:
                                                                     </p>
                                                                     <p
-                                                                        style="font-size:16px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:32px !important;color:#ffffff;">
-                                                                        MovieQuotes Crew</p>
+                                                                        style="text-align:center; font-size:35px; color:#565a5c; font-weight:500;">
+                                                                        {{ $code }}</p>
+                                                                    <div>
+                                                                        <p
+                                                                            style="font-size:12px; text-align:center; color:#565a5c; margin:0;">
+                                                                            from</p>
+                                                                        <div style="text-align:center; ">
+                                                                            <img style="height:18px;"
+                                                                                src="{{ $message->embed(public_path() . '/assets/instagramMeta.png') }}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <p class="smallFont"
+                                                                        style="font-size:12px;font-weight:400;font-family:'Inter',sans-serif;margin-bottom:24px;color:#abadae;">
+                                                                        © Instagram. Meta Platforms, Inc., 1601 Willow
+                                                                        Road, Menlo Park, CA 94025</p>
+                                                                    <p class="smallFont"
+                                                                        style="font-size:12px;font-weight:400;font-family:'Inter',sans-serif;color:#abadae;">
+                                                                        This message was sent to {{ $email }}.
+                                                                    </p>
+
                                                                 </td>
                                                             </tr>
                                                         </table>
