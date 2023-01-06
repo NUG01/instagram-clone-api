@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -15,21 +18,85 @@ class AuthController extends Controller
     }
     public function register(RegisterRequest $request)
     {
+        $code=DB::table('codes')->where('user_email', $request->email)->where('code', $request->code)->latest()->first();
+        if ($code!=null) {
+            $user = User::create([
+             'email'  => Str::lower($request->email),
+             'username'  => $request->username,
+             'fullname'  => $request->fullname,
+             'birth_date'  => $request->birth_date,
+             'password'  => Hash::make($request->password),
+             'verification_code'  => sha1(time()),
+             'is_verified'=>1
+            ]);
 
-        $user = User::create([
-         'email'  => $request->email,
-         'username'  => $request->username,
-         'fullname'  => $request->fullname,
-         'birth_date'  => $request->birth_date,
-         'password'  => Hash::make($request->password),
-         'verification_code'  => sha1(time()),
-        ]);
-
-        if($user != null){
-		MailController::sendEmail($user->username, $user->email, $user->verification_code, 'Account Confirmation', 'emails.register');
+            $this->insertCode($user);
+            return response()->json('Successfully registered!');
         }else{
+            return response()->json('Provided code is incorrect!');
+
+        }
+    }
+
+    public function checkCredentials(Request $request)
+    {
+        $email=Str::lower($request->email);
+        $username=$request->username;
+
+        $emailExists=User::where('email', $email)->first();
+        $usernameExists=User::where('username', $username)->first();
+
+        if (!$emailExists && !$usernameExists) {
+            return response()->json('Credentials successfully registered!');
+        }
+        if ($emailExists && $usernameExists) {
+            return response()->json('Given email and username already exist!', 403);
+        }
+        if ($emailExists) {
+            return response()->json('Email already exists!', 403);
+        }
+        if ($usernameExists) {
+            return response()->json('Username already exists!', 403);
+        }
+    }
+
+    public function resendCode(Request $request)
+    {
+        $user=User::where('email', $request->email)->first();
+
+        $this->insertCode($user);
+    }
+
+    public function addVerificationCode(Request $request)
+    {
+        $randomNumber = mt_rand(100000, 999999);
+
+        DB::table('codes')->insert([
+            'user_email'=>Str::lower($request->email),
+            'code'=>$randomNumber,
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
+          ]);
+
+        MailController::sendEmail($request->username, Str::lower($request->email), $randomNumber, $randomNumber . ' is your Instagram code', 'emails.register');
+    }
+
+    private function insertCode($user)
+    {
+        $randomNumber = mt_rand(100000, 999999);
+
+        DB::table('codes')->insert([
+            'user_email'=>$user->email,
+            'code'=>$randomNumber,
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
+          ]);
+
+        if ($user != null) {
+            MailController::sendEmail($user->username, $user->email, $randomNumber, $randomNumber . ' is your Instagram code', 'emails.register');
+        } else {
+            $user->delete();
             return response()->json('Registration failed!', 403);
         }
-        return response()->json('Email sent successfully!');
     }
 }

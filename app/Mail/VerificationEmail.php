@@ -11,7 +11,8 @@ use Illuminate\Queue\SerializesModels;
 
 class VerificationEmail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new message instance.
@@ -24,9 +25,9 @@ class VerificationEmail extends Mailable
     }
 
     public function build()
-	{
-		return $this->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'))
-		->subject($this->data['subject'])
-		->view($this->data['views'], ['name'=>$this->data['username'], 'url'=>$this->data['verification_code']]);
-	}
+    {
+        return $this->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'))
+        ->subject($this->data['subject'])
+        ->view($this->data['views'], ['name'=>$this->data['username'], 'code'=>$this->data['verification_code'], 'email'=>$this->data['email']]);
+    }
 }
