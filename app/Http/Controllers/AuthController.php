@@ -34,6 +34,12 @@ class AuthController extends Controller
 		return response()->json('Logged in successfully!')->withCookie($cookie);
 	}
 
+	public function logout(){
+		$cookie = cookie('access_token', '', 0, '/', env('FRONTEND_URL'), true, true, false, 'Strict');
+
+		return response()->json('Successfully logged out')->withCookie($cookie);
+	}
+
 	public function register(RegisterRequest $request)
 	{
 		$code = DB::table('codes')->where('user_email', $request->email)->where('code', $request->code)->latest()->first();

@@ -17,16 +17,16 @@ return new class() extends Migration {
 			$table->string('email')->unique();
 			$table->string('username')->unique();
 			$table->string('fullname');
-			$table->string('birth_date');
+			$table->string('birth_date')->nullable();
 			$table->string('thumbnail')->default('assets/avatar.png');
 			$table->integer('is_verified')->default(0);
 			$table->string('verification_code')->nullable();
 			$table->string('password');
 			$table->rememberToken();
 			$table->timestamps();
-			$table->string('facebook_id')->nullable();
-			$table->string('facebook_token')->nullable();
-			$table->string('facebook_refresh_token')->nullable();
+			$table->string('google_id')->nullable();
+			$table->string('google_token')->nullable();
+			$table->string('google_refresh_token')->nullable();
 		});
 	}
 
