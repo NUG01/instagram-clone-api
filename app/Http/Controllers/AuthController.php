@@ -16,25 +16,26 @@ class AuthController extends Controller
 {
 	public function login(LoginRequest $request)
 	{
-
-		$username=$request->username;
-		$password=$request->password;
+		$username = $request->username;
+		$password = $request->password;
 		$usernameType = filter_var($username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 		$token = auth()->attempt([$usernameType=>$username, 'password'=>$password]);
-		if(!$token){
+		if (!$token)
+		{
 			return response()->json('User does not exist!', 403);
-		} 
+		}
 		$payload = [
 			'exp' => Carbon::now()->addMinutes(30)->timestamp,
 			'uid' => User::where($usernameType, $username)->first()->id,
 		];
 
-		$jwt= JWT::encode($payload, config('auth.jwt_secret'), 'HS256');
+		$jwt = JWT::encode($payload, config('auth.jwt_secret'), 'HS256');
 		$cookie = cookie('access_token', $jwt, 30, '/', env('FRONTEND_URL'), true, true, false, 'Strict');
 		return response()->json('Logged in successfully!')->withCookie($cookie);
 	}
 
-	public function logout(){
+	public function logout()
+	{
 		$cookie = cookie('access_token', '', 0, '/', env('FRONTEND_URL'), true, true, false, 'Strict');
 
 		return response()->json('Successfully logged out')->withCookie($cookie);

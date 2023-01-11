@@ -20,7 +20,7 @@ return new class() extends Migration {
 			$table->string('birth_date')->nullable();
 			$table->string('thumbnail')->default('assets/avatar.png');
 			$table->integer('is_verified')->default(0);
-			$table->string('verification_code')->nullable();
+			$table->string('verification_code');
 			$table->string('password');
 			$table->rememberToken();
 			$table->timestamps();
