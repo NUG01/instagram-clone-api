@@ -22,7 +22,7 @@ class AuthController extends Controller
 		$token = auth()->attempt([$usernameType=>$username, 'password'=>$password]);
 		if (!$token)
 		{
-			return response()->json('User does not exist!', 403);
+			return response()->json('User with given credentials does not exist!', 403);
 		}
 		$payload = [
 			'exp' => Carbon::now()->addMinutes(30)->timestamp,
