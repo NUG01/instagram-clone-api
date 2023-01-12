@@ -25,6 +25,9 @@ class ForgotPasswordController extends Controller
 		{
 			$user = $usernameValue;
 		}
+		if(!$user){
+			return response()->json('User does not exist!', 403);
+		} 
 		$code = ([
 			'reset'=> env('FRONTEND_URL_FOR_CONFIRM') . '/recover-password/' . $user->verification_code . '?email=' . $user->email,
 			'login'=> env('FRONTEND_URL_FOR_CONFIRM') . '/easy-login/' . $user->verification_code . '?email=' . $user->email,
@@ -32,6 +35,7 @@ class ForgotPasswordController extends Controller
 		if ($user != null)
 		{
 			MailController::sendEmail($user->username, Str::lower($user->email), $code, $user->username . ", we've made it easy to get back on Instagram", 'emails.forgotPassword');
+			return response()->json(['message'=>'Email was sent!', 'email'=>$user->email]);
 		}
 		else
 		{
@@ -42,6 +46,9 @@ class ForgotPasswordController extends Controller
 	public function recoverPassword(RecoverPasswordRequest $request)
 	{
 		$user = User::where('email', $request->email)->where('verification_code', $request->token)->first();
+		if(!$user){
+			return response()->json('User does not exist!', 403);
+		} 
 		$user->password = Hash::make($request->password);
 		$user->save();
 		return response()->json('Password updated successfully!');
