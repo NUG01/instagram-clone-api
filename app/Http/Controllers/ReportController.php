@@ -17,7 +17,7 @@ class ReportController extends Controller
 
         if (isset($request['images'])) {
         foreach ($request->images as $imagefile) {
-            $relativePath =StaticController::saveImage($imagefile);
+            $relativePath =StaticController::saveImage($imagefile, 'images/reports/');
             $imagefile = $relativePath;
         };
 

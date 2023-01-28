@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class StaticController extends Controller
 {
-   public static function saveImage($image){
+   public static function saveImage($image, $dir){
         if (preg_match('/^data:image\/(\w+);base64,/', $image, $type)) {
             $image = substr($image, strpos($image, ',') + 1);
             $type = strtolower($type[1]); 
@@ -26,7 +26,6 @@ class StaticController extends Controller
             throw new \Exception('did not match data URI with image data');
         }
 
-        $dir = 'images/';
         $file = Str::random() . '.' . $type;
         $absolutePath = public_path($dir);
         $relativePath = $dir . $file;

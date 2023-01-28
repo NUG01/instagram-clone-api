@@ -5,6 +5,7 @@ use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,8 +36,13 @@ Route::controller(OAuthController::class)->prefix('auth/google')->group(function
 Route::controller(UserController::class)->prefix('user')->group(function () {
 	Route::get('/', 'index')->name('user.index');
 });
+
 Route::controller(ReportController::class)->group(function () {
 	Route::post('/report-problem', 'create')->name('report.create');
+});
+
+Route::controller(SettingController::class)->group(function () {
+	Route::post('/change-theme', 'changeThemeColor')->name('setting.theme');
 });
 
 Route::controller(ForgotPasswordController::class)->group(function () {

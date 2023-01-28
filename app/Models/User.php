@@ -47,4 +47,10 @@ class User extends Authenticatable
 	{
 		return	$this->hasMany(Report::class);
 	}
+
+	
+	public function theme()
+	{
+		return $this->hasOne(Theme::class);
+	}
 }
