@@ -40,10 +40,12 @@ class OAuthController extends Controller
 				'google_refresh_token' => $googleUser->refreshToken,
 			]
 		);
-		$theme=new Theme();
-		$theme->user_id=$user->id;
-		$theme->color='light';
-    $theme->save();
+		if(!$user->theme){
+			$theme=new Theme();
+			$theme->user_id=$user->id;
+			$theme->color='light';
+			$theme->save();
+		}
 
 		$token = auth()->attempt(['email' => $googleUser->email, 'password'=>$googleUser->id]);
 		if (!$token)
