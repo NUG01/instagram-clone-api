@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Theme;
 use App\Models\User;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
@@ -39,6 +40,12 @@ class OAuthController extends Controller
 				'google_refresh_token' => $googleUser->refreshToken,
 			]
 		);
+		if(!$user->theme){
+			$theme=new Theme();
+			$theme->user_id=$user->id;
+			$theme->color='light';
+			$theme->save();
+		}
 
 		$token = auth()->attempt(['email' => $googleUser->email, 'password'=>$googleUser->id]);
 		if (!$token)

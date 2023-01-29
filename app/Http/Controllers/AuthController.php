@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Theme;
 use App\Models\User;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
@@ -55,6 +56,10 @@ class AuthController extends Controller
 				'verification_code'  => sha1(time()),
 				'is_verified'        => 1,
 			]);
+			$theme=new Theme();
+		  $theme->user_id=$user->id;
+			$theme->color='light';
+			$theme->save();
 
 			$this->insertCode($user);
 			return response()->json('Successfully registered!');
